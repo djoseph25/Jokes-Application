@@ -10,7 +10,9 @@ class JokeList extends Component {
 	};
 	constructor(props) {
 		super(props);
-		this.state = { Jokes: [] };
+		//Update state instead of an empty array it will retrieve
+		//10 joke from local storage first if there none give me 10 random jokes
+		this.state = { Jokes: JSON.parse(window.localStorage.getItem('Jokes')) || [] };
 	}
 	// defining vote method
 	handleVotes(id, update) {
@@ -19,7 +21,11 @@ class JokeList extends Component {
 		}));
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
+		if (this.state.Jokes.length === 0) this.getJokes();
+	}
+
+	async getJokes() {
 		let DadJokes = [];
 		while (DadJokes.length <= this.props.NumofJokes) {
 			let response = await axios.get('https://icanhazdadjoke.com/', {
@@ -30,8 +36,10 @@ class JokeList extends Component {
 		}
 		// console.log(Jokes);
 		this.setState({ Jokes: DadJokes });
+		// Local storage can only store string so I need to convert joke to string
+		//JSON.STringtify will covert my Dad Joke to string
+		window.localStorage.setItem('Jokes', JSON.stringify(DadJokes));
 	}
-
 	render() {
 		let Jokerender = this.state.Jokes.map((j) => (
 			<Joke
