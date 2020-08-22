@@ -1,3 +1,6 @@
+*:focus {
+	outline: none;
+}
 .Joke {
 	display: flex;
 	border-bottom: 2px dotted #dfdfdf;

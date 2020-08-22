@@ -14,11 +14,19 @@ class JokeList extends Component {
 		//10 joke from local storage first if there none give me 10 random jokes
 		this.state = { Jokes: JSON.parse(window.localStorage.getItem('Jokes')) || [] };
 	}
+	getNewJokes = () => {
+		this.getJokes();
+	};
+
 	// defining vote method
 	handleVotes(id, update) {
-		this.setState((state) => ({
-			Jokes: state.Jokes.map((j) => (j.id === id ? { ...j, votes: j.votes + update } : j)),
-		}));
+		this.setState(
+			(state) => ({
+				Jokes: state.Jokes.map((j) => (j.id === id ? { ...j, votes: j.votes + update } : j)),
+			}),
+			//after setting state, if I refresh I will still get the same jokes with the votes
+			() => window.localStorage.setItem('Jokes', JSON.stringify(this.state.Jokes))
+		);
 	}
 
 	componentDidMount() {
@@ -34,11 +42,15 @@ class JokeList extends Component {
 			});
 			DadJokes.push({ id: uuidv4(), text: response.data.joke, votes: 0 });
 		}
-		// console.log(Jokes);
-		this.setState({ Jokes: DadJokes });
-		// Local storage can only store string so I need to convert joke to string
-		//JSON.STringtify will covert my Dad Joke to string
-		window.localStorage.setItem('Jokes', JSON.stringify(DadJokes));
+
+		this.setState(
+			(state) => ({ Jokes: [...state.Jokes, ...DadJokes] }),
+
+			//after setting state, if I refresh I will still get the same jokes with the votes
+			// Local storage can only store string so I need to convert joke to string
+			//JSON.STringtify will covert my Dad Joke to string
+			() => window.localStorage.setItem('Jokes', JSON.stringify(this.state.Jokes))
+		);
 	}
 	render() {
 		let Jokerender = this.state.Jokes.map((j) => (
@@ -58,7 +70,9 @@ class JokeList extends Component {
 						src="https://lh3.googleusercontent.com/proxy/Kz_r897BIdXxql30f0dVguVREDSx3iuE6aDyk3JnTTsgAFy4zKYCryBkurX1X5RL620JG2VWLQvDdoz-6p96uA8fnAKTpJw"
 						alt="Dad Pic"
 					/>
-					<button className="Jokes-getMore">New Jokes</button>
+					<button className="Jokes-getMore" onClick={this.getNewJokes}>
+						New Jokes
+					</button>
 				</div>
 				<div className="Jokes-found">{Jokerender}</div>
 			</div>

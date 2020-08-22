@@ -1,3 +1,6 @@
+*:focus {
+	outline: none;
+}
 .Jokes {
 	display: flex;
 	width: 80%;
@@ -15,7 +18,6 @@
 
 .Jokes-title {
 	padding-top: 10%;
-
 	font-size: 2rem;
 	margin: 1rem;
 	color: white;
