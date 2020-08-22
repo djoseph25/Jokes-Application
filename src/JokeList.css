@@ -1,0 +1,52 @@
+.Jokes {
+	display: flex;
+	width: 80%;
+	height: 85%;
+}
+.Jokes-Sidebar {
+	background-color: #537895;
+	background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 30%;
+	box-shadow: 5px 10px 8px 2px #337cc075;
+}
+
+.Jokes-title {
+	padding-top: 10%;
+
+	font-size: 2rem;
+	margin: 1rem;
+	color: white;
+	font-weight: 300;
+	font-family: 'Shadows Into Light Two', cursive;
+	letter-spacing: 0.2rem;
+}
+
+.Jokes-getMore {
+	color: white;
+	margin-top: 4px;
+	width: 40%;
+	height: 7%;
+	margin: auto;
+	border-radius: 30%;
+	font-family: 'Shadows Into Light Two', cursive;
+	font-weight: bold;
+	font-size: 21px;
+	background: linear-gradient(45deg, red, blue);
+}
+
+.Jokes-found {
+	height: 90%;
+	align-self: center;
+	width: 90%;
+	overflow: scroll;
+	box-shadow: 5px 10px 8px 2px #888888;
+	padding-right: 1%;
+	padding-left: 1%;
+	background: rgba(255, 255, 255, 0.925);
+}
+.Jokes-Sidebar img {
+	padding-top: 8%;
+}

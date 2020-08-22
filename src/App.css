@@ -3,6 +3,6 @@
 	align-items: center;
 	justify-content: center;
 	height: 100vh;
-	background: linear-gradient(to bottom left, cyan 50%, palegoldenrod 50%);
+	background: linear-gradient(to bottom left, rgb(58, 90, 121) 50%, rgb(226, 230, 238) 50%);
 	font-family: 'Baskervville', serif;
 }

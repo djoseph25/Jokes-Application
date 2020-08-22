@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './Jokes.css';
+import './JokeList.css';
+import Joke from './Jokes';
+import { v4 as uuidv4 } from 'uuid';
 
 class JokeList extends Component {
 	static defaultProps = {
@@ -10,6 +12,12 @@ class JokeList extends Component {
 		super(props);
 		this.state = { Jokes: [] };
 	}
+	// defining vote method
+	handleVotes(id, update) {
+		this.setState((state) => ({
+			Jokes: state.Jokes.map((j) => (j.id === id ? { ...j, votes: j.votes + update } : j)),
+		}));
+	}
 
 	async componentDidMount() {
 		let DadJokes = [];
@@ -18,20 +26,28 @@ class JokeList extends Component {
 				headers: { Accept: 'application/json' },
 				// I am getting the Html as well so I need to add some additional logic to just get the json file
 			});
-			DadJokes.push(response.data.joke);
+			DadJokes.push({ id: uuidv4(), text: response.data.joke, votes: 0 });
 		}
 		// console.log(Jokes);
 		this.setState({ Jokes: DadJokes });
 	}
 
 	render() {
-		let Jokerender = this.state.Jokes.map((j) => <h4>{j}</h4>);
+		let Jokerender = this.state.Jokes.map((j) => (
+			<Joke
+				key={j.id}
+				votes={j.votes}
+				text={j.text}
+				upvotes={() => this.handleVotes(j.id, 1)}
+				downvotes={() => this.handleVotes(j.id, -1)}
+			/>
+		));
 		return (
 			<div className="Jokes">
 				<div className="Jokes-Sidebar">
 					<h1 className="Jokes-title">Funny Dad Jokes</h1>
 					<img
-						src="https://lh3.googleusercontent.com/proxy/VdryVZO3Eh9Jh4XhMbrD6VGqMTuMxNhHB0Dbs7UKOQ7NV-KVhqpYq921kKcWENcudecofJjTvtuveT0s_Kn7n9r3MOVR6xI"
+						src="https://lh3.googleusercontent.com/proxy/Kz_r897BIdXxql30f0dVguVREDSx3iuE6aDyk3JnTTsgAFy4zKYCryBkurX1X5RL620JG2VWLQvDdoz-6p96uA8fnAKTpJw"
 						alt="Dad Pic"
 					/>
 					<button className="Jokes-getMore">New Jokes</button>
