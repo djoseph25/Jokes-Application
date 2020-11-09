@@ -52,3 +52,9 @@
 .Jokes-Sidebar img {
 	padding-top: 8%;
 }
+
+#dadpic{
+	width: 100%;
+	height: 60%;
+	border-radius: 25%;
+}

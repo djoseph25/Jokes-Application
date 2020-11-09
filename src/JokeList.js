@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import DadPic from './asset/dad.jpg'
 import axios from 'axios';
 import './JokeList.css';
 import Joke from './Jokes';
@@ -67,8 +68,9 @@ class JokeList extends Component {
 				<div className="Jokes-Sidebar">
 					<h1 className="Jokes-title">Funny Dad Jokes</h1>
 					<img
-						src="https://lh3.googleusercontent.com/proxy/Kz_r897BIdXxql30f0dVguVREDSx3iuE6aDyk3JnTTsgAFy4zKYCryBkurX1X5RL620JG2VWLQvDdoz-6p96uA8fnAKTpJw"
+						src={DadPic}
 						alt="Dad Pic"
+						id='dadpic'
 					/>
 					<button className="Jokes-getMore" onClick={this.getNewJokes}>
 						New Jokes
